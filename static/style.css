@@ -1,0 +1,445 @@
+/* General Styles */
+body {
+    margin: 0;
+    font-family: "Ubuntu", serif;
+    background-color: #466D87; /* Match main background color */
+    color: #FFFFFF;
+
+}
+  
+header {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+    position: sticky; /* Fixes header at the top */
+    top: 0; /* Sticks header at the top */
+    background-color: #466D87; /* Ensures the header stays visible */
+    z-index: 10; /* Keeps header above other elements */
+}
+
+.tabs-container {
+     background-color: #FFFFFF; /* White background */
+    border-radius: 10px; /* Rounded corners */
+    padding: 10px 20px; /* Padding for spacing inside */
+    display: inline-flex; /* Adjust width to fit content */
+    gap: 10px; /* Spacing between buttons */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional subtle shadow */
+    position: fixed; /* Fixed positioning to stay at the top */
+    right: 20px; /* Position it on the right with some margin */
+    top: 20px; /* Position it from the top */
+    z-index: 100; /* Ensure it stays above other elements */
+}
+
+.tab-button {
+    background-color: transparent;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #466D87;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.8s ease; /* Add transition */
+}
+
+.tab-button.active {
+    background-color: #466D87; /* Same as the container background */
+    border-radius: 15px;
+    color: #ffffff; /* Highlight the active button */
+    transition: background-color 0.3s ease, color 0.8s ease; /* Ensure active state also transitions */
+}
+
+.back-button {
+    background-color: transparent; /* Remove default background */
+    border: none; /* Remove default border */
+    color: #466D87; /* Set text color */
+    font-size: 16px; /* Set font size */
+    padding: 10px 20px; /* Add padding */
+    cursor: pointer; /* Change cursor to pointer */
+    display: flex; /* Use flexbox for icon and text alignment */
+    align-items: center; /* Center icon and text vertically */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
+    text-align: center;
+}
+.back-button a{
+        background-color: transparent; /* Remove default background */
+        border: none; /* Remove default border */
+        color: #466D87; /* Set text color */
+        font-size: 16px; /* Set font size */
+        padding: 10px 20px; /* Add padding */
+        cursor: pointer; /* Change cursor to pointer */
+        display: flex; /* Use flexbox for icon and text alignment */
+        align-items: center; /* Center icon and text vertically */
+        transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
+        text-align: center;
+        text-decoration: none;
+}
+
+
+.back-button i {
+    margin-right: 8px; /* Space between icon and text */
+}
+
+.back-button:hover {
+    background-color: #ffb92d72; /* Light background on hover */
+    color: #466D87;  /* Darker text color on hover */
+    border-radius: 5px; /* Optional: rounded corners on hover */
+}
+
+
+
+
+
+.form-signin {
+    display: flex; /* Use flexbox */
+    align-items: center; /* Center the button vertically if needed */
+    flex-direction: column; /* Optional: stack elements vertically */
+}
+
+.submit-button {
+    background-color: transparent; /* Remove default background */
+    border: none; /* Remove default border */
+    color: #466D87; /* Set text color */
+    font-size: 16px; /* Set font size */
+    padding: 10px 20px; /* Add padding */
+    cursor: pointer; /* Change cursor to pointer */
+    display: flex; /* Use flexbox for icon and text alignment */
+    align-items:center; /* Center icon and text vertically */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
+}
+
+.submit-button i {
+    margin-right: 8px; /* Space between icon and text */
+    align-items: center;
+}
+
+.submit-button:hover {
+    background-color: #ffb92d72; /* Light background on hover */
+    color: #466D87; /* Darker text color on hover */
+    border-radius: 5px; /* Optional: rounded corners on hover */
+}
+
+
+/* Layout Container */
+.container {
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    height: calc(90vh - 40px); /* Adjust to ensure space for header */
+    padding: 20px;
+    flex-wrap: wrap; /* Allow wrapping of child elements */
+    gap: 5%; /* Small gap between the two panels */
+}
+
+/* Left Panel (Upload Section) */
+.upload-section {
+    background-color: #FFFFFF; /* White for the upload section */
+    color: #466D87;
+    padding: 20px;
+    border-radius: 20px;
+    flex-grow: 1; /* Allow the left panel to grow and take up available space */
+    min-width: 280px; /* Set a minimum width to ensure it doesn't get too small */
+    max-width: 500px; /* Optional: Limit the maximum width for responsiveness */
+    text-align: center;
+    overflow: hidden; /* Hide any overflowing content */
+    
+}
+
+.output-section{
+    
+    background-color: #FFFFFF; /* White for the upload section */
+    color: #466D87;
+    padding: 20px;
+    border-radius: 20px;
+    flex-grow: 1; /* Allow the left panel to grow and take up available space */
+    min-width: 280px; /* Set a minimum width to ensure it doesn't get too small */
+    max-width: 500px; /* Optional: Limit the maximum width for responsiveness */
+    text-align: center;
+    overflow: hidden;
+}
+
+.button-container {
+    display: flex; /* Use flexbox to align buttons horizontally */
+    justify-content: center; /* Center the buttons */
+    gap: 10px; /* Space between buttons */
+    margin-top: 10px; /* Space above the button container */
+}
+
+
+
+.decimg{
+    width: 80%; /* Set the width to a percentage of the parent */
+    max-width: 800px; /* Optional: set a maximum width */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: contain;
+}
+
+.top h1{
+    margin: 24px 24px 24px 24px;
+}
+
+
+.webcam {
+    background-color: #FFFFFF; /* White for the upload section */
+    color: #466D87;
+    padding: 20px; /* Increased padding for better spacing */
+    border-radius: 20px;
+    display: flex; /* Use flexbox to structure the layout */
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: flex-start; /* Align items from the top */
+    gap: 20px; /* Spacing between elements */
+    text-align: center;
+    transition: all 0.3s ease-in-out; /* Smooth size transition */
+    position: relative; /* To position the video inside */
+    width: 100%; /* Make the width 100% of the available space */
+    height: 80vh; /* Take up 80% of the viewport height */
+    max-width: 800px; /* Optional: Limit the max width */
+    margin: 20px auto; /* Center the container horizontally with a margin */
+}
+
+
+/* .webcam.expanded {
+    width: 80%; /* Example expanded width */
+    /* height: 600px; /* Example expanded height */
+    /* margin: auto;} /* Center the container */
+    
+
+
+/* .webcam video {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%; 
+    border-radius: 20px;
+    object-fit: contain; 
+    position: absolute; 
+    top: 50%;
+    left: 50%; 
+    transform: translate(-50%, -50%); } */
+
+
+.upload-section h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.upload-section span {
+    font-size: 1.5rem;
+    font-family: "Ubuntu", sans-serif;
+    margin: 10px 0;
+}
+
+.top{
+    position: relative;
+    position: fixed; /* Fixed positioning to stay at the top */
+    left: 20px; /* Position it on the right with some margin */
+    top: 20px; /* Position it from the top */
+    z-index: 100; /* Ensure it stays above other elements */
+}
+
+.title {
+    font-size: 2em; /* Size of the title */
+    color: #fff; /* Title color */
+    cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+.text{
+    position: absolute; /* Position it absolutely within the container */
+    top: 100%; /* Position below the title */
+    left: 50%; /* Center it horizontally */
+    transform: translateX(-50%); /* Adjust for centering */
+    background-color: #fff; /* Background color for the text */
+    border: 1px solid #ccc; /* Border for the text box */
+    padding: 10px; /* Padding around the text */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    opacity: 0; /* Initially hidden */
+    visibility: hidden; /* Hidden from layout */
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* Smooth transition */
+}
+
+top:hover .text{
+    opacity: 1; /* Show on hover */
+    visibility: visible; /* Make it visible */
+}
+
+.url {
+    font-size: 0.9rem;
+    margin: 10px 0px;
+}
+
+.upload-box {
+    background-color: #ffb92d72; /* Yellow for upload box */
+    width: 100%;
+    height: 120px; /* Same height as the drop box */
+    margin: 20px 0;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.webcam-box {
+    background-color: #f4f4f4; /* Light grey background for the drop area */
+    width: 100%;
+    height: 400px; /* Size of the drop area */
+    margin: 20px 0;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed #466D87; /* Dashed border */
+    color: #466D87; /* Text color */
+    font-size: 1rem;
+}
+.webcam video {
+    width: 100%; /* Make sure video occupies full width of the container */
+    height: 100%; /* Make sure video occupies full height of the container */
+    object-fit: cover; /* Ensures the video fills the container */
+    border-radius: 20px;
+    position: absolute; /* To overlay the video */
+    top: 50%; /* Centers the video vertically */
+    left: 50%; /* Centers the video horizontally */
+    transform: translate(-50%, -50%); /* Centers the video perfectly */
+}
+
+
+.upload-box p {
+    margin: 5px 0;
+}
+
+.upload-button {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #466D87;
+    cursor: pointer;
+}
+
+.url-input {
+    width: 100%; /* Full width to match the upload box */
+    height: 20%; /* Same height as the upload box */
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 20px; /* Match the rounded corners of the upload box */
+    font-size: 1rem;
+    background-color: #ffb92d72 ; /* Yellow for URL input */
+    text-align: center;
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+    color: black;
+    
+
+}
+
+.cam-button:hover {
+    transform: scale(1.05);
+}
+
+.cam-button i {
+    color: #ffb92d; /* Initial color */
+    transition: color 0.3s ease; /* Smooth color transition */
+}
+
+
+.cam-button {
+    padding: 10px 20px;
+    background-color: #ffb92d72;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    color:#466D87;
+    font-weight: bold;
+    transform: scale(1.2);
+    transition: transform 0.3s ease; 
+    
+}
+
+/* Style for the uploaded file's name */
+.file-name {
+    font-size: 1rem;
+    margin-top: 10px;
+    color: #466D87;
+}
+
+/* Right Panel (Info Section) */
+.info-section {
+    max-width: 600px; /* Reduced width for closer positioning */
+    text-align: left;
+    margin-left: 10px; /* Small margin to the left */
+}
+
+.info-section h1 {
+    font-size: 2.5rem;
+    margin: 5% 0 10px 0;
+}
+
+.info-section .description {
+    margin: 10px 0;
+    line-height: 1.5;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 880px) {
+    /* Adjust the container for smaller screens */
+    .container {
+        flex-direction: column;
+        align-items: center; /* Center the content vertically */
+        gap: 5px; /* Smaller gap on smaller screens */
+        height: auto; /* Allow the container to resize based on content */
+        margin-top: 60px; /* Ensure space for header */
+    }
+
+    /* Reduce the width of the panels on smaller screens */
+    .upload-section, .info-section {
+        width: 90%; /* Take up most of the screen width */
+        max-width: 600px; /* Limit the width */
+       
+    }
+
+    /* Adjust font sizes for better readability */
+    .upload-section h2, .info-section h1 {
+        font-size: 1.5rem;
+    }
+
+    .upload-section p, .info-section .description {
+        font-size: 0.85rem;
+    }
+
+    .tabs-container {
+        position: static; /* Position tabs container normally on smaller screens */
+        margin: 10px 20px;
+        width: 90%; /* Allow it to stretch across the screen */
+        justify-content: center;
+    }
+
+    .tab-button {
+        font-size: 0.9rem; /* Smaller button text */
+        padding: 8px 16px;
+    }
+
+    .top h1{
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    /* Further adjustments for very small screens */
+    .upload-section h2, .info-section h1 {
+        font-size: 1.3rem; /* Smaller headers */
+    }
+
+    .upload-section p, .info-section .description {
+        font-size: 0.8rem; /* Smaller paragraph text */
+    }
+
+    .upload-box {
+        height: 100px; /* Reduce the size of the upload box */
+    }
+
+    .url-input {
+        font-size: 0.9rem; /* Smaller input text */
+    }
+}

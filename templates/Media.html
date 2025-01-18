@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pose Detection - Media Upload</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script defer src="{{ url_for('static', filename='script.js') }}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <div class="top">
+        <h1 class="title">Pose Detection</h1>
+        <div class="text">
+            This model detects different poses to identify potential threats.
+                It can recognize if someone is armed, lockpicking a property, or
+                in a neutral position
+            </div>
+    <div class="tabs-container">
+        <a href="{{ url_for('index') }}">
+            <button class="tab-button active">Media Upload</button>
+        </a>
+        <a href="{{ url_for('webcam') }}">
+            <button class="tab-button">Web Cam</button>
+        </a>
+    </div></div>
+        <div class="container">
+    <div class="upload-section">
+        <h2>Upload Files</h2>
+        <p>Accepted formats: JPEG, PNG</p>
+        <form class="form-signin" method="POST" action="/upload" enctype="multipart/form-data">
+        <div class="upload-box" onclick="document.getElementById('file-input').click()">
+            <input type="file" name="file" class="file-input" id="file-input" accept="image/*" required style="display: none;">
+                <div class="upload-container">
+                    <i class="fa-solid fa-cloud-arrow-up fa-2xl"></i>
+                    <span class="upload-text">Click to select a file</span> 
+                </div></div>
+                <button type="submit" class="submit-button"><i class="fa fa-check-circle" aria-hidden="true"></i>Detect</button>
+            </form>
+            <p><span>Model Ver:</span>{{model}}</p>
+        </div>
+        
+        <div class="output-section" id="output-section">
+            {% if detected_image %}
+                    <h2>Detected Image:</h2>
+                    <img class="decimg" src="{{ url_for('send_detected_file', filename='detected_image.jpg') }}" alt="decimg" style="max-width: 100%; height: auto;" id="decimg">
+                {% endif %}<br><button id="download-btn" class="back-button"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i>Download</button>
+
+                <a href="javascript:void(0);" onclick="history.go(-1)" id="back-btn" class="back-button">
+                    <i class="fa fa-angle-left" aria-hidden="true"></i> Back</a></div>
+    </div>
+</body>
+</html>
+
