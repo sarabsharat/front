@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pose Detection - Web Cam</title>
+    <link rel="icon" href="{{ url_for('static', filename='icon.ico') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script defer src="{{ url_for('static', filename='script.js') }}"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -24,34 +25,12 @@
             <p>Allow the website to access your camera to enable webcam functionality.</p>
             <div class="webcam-box">
                 <video id="webcam-video" autoplay muted></video>
+                <canvas id="bounding-box-canvas"></canvas>
                 <button class="cam-button" aria-label="Start Webcam">
                     <i class="fa-solid fa-video fa-2xl"></i> Start Webcam
                 </button>
             </div>
         </div>
     </div>
-    
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const videoRef = document.getElementById("webcam-video");
-            const camButton = document.querySelector(".cam-button");
-    
-            // Listen for the button click to start the webcam
-            camButton.addEventListener("click", async () => {
-                try {
-                    // Request user media for video (webcam)
-                    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-                    // Attach the webcam stream to the video element
-                    videoRef.srcObject = stream;
-                    videoRef.play();
-                    // Hide the start webcam button after it starts
-                    camButton.style.display = "none";
-                } catch (err) {
-                    alert("Unable to access webcam. Please check your browser permissions.");
-                }
-            });
-        });
-    </script>
-    
 </body>
 </html>

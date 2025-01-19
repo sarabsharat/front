@@ -20,7 +20,6 @@ model = YOLO('best.pt')  # Replace 'best.pt' with the correct path to your train
 @app.route('/')
 def index():
     return render_template('Media.html', detected_image=None)
-      # Pass None initially for no image
 
 @app.route('/webcam')
 def webcam():
@@ -58,17 +57,25 @@ def detect(file_path):
     # Get the first result
     result = results[0]
 
+    # Extract confidence and detected classes
+    confidence = result.boxes.conf[0].item()  # Assuming you want the first detection's confidence
+    detected_classes = result.names[result.boxes.cls[0].item()]  # Get the class name
+
     # Optionally, save the result image
     result_path = os.path.join(app.config['DETECTED_FOLDER'], 'detected_image.jpg')
     result.save(result_path)
 
-    # Return the index page with the detected image
-    return render_template('Media.html', detected_image=result_path)
+    # Return the index page with the detected image and additional data
+    return jsonify({
+        "message": "Detection successful",
+        "image_path": result_path,
+        "confidence": confidence,
+        "detected_classes": detected_classes
+    })
 
 @app.route('/detected_file/<filename>')
 def send_detected_file(filename):
     return send_from_directory(app.config['DETECTED_FOLDER'], filename)
-
 
 if __name__ == '__main__':
     app.run(debug=True)
