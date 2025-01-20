@@ -3,55 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pose Detection - Web Cam</title>
+    <title>Real-Time Object Detection</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <script defer src="{{ url_for('static', filename='script.js') }}"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="top">
+        <h1 class="title">Pose Detection</h1>
+        <div class="text">
+            This model detects different poses to identify potential threats.
+                It can recognize if someone is armed, lockpicking a property, or
+                in a neutral position
+            </div>
     <div class="tabs-container">
         <a href="{{ url_for('index') }}">
-            <button class="tab-button">Media Upload</button>
+            <button class="tab-button ">Media Upload</button>
         </a>
         <a href="{{ url_for('webcam') }}">
             <button class="tab-button active">Web Cam</button>
         </a>
-    </div>
+    </div></div>
+
     <div class="container">
-        <div class="webcam">
-            <h2>Webcam Access</h2>
-            <p>Allow the website to access your camera to enable webcam functionality.</p>
-            <div class="webcam-box">
-                <video id="webcam-video" autoplay muted></video>
-                <button class="cam-button" aria-label="Start Webcam">
-                    <i class="fa-solid fa-video fa-2xl"></i> Start Webcam
-                </button>
-            </div>
+        <h1>Real-Time Object Detection with YOLO</h1>
+        <p>Click the button to start/stop the webcam feed with YOLO detection:</p>
+
+        <!-- Webcam feed -->
+        <div class="webcam-feed">
+            <img id="video-stream" src="{{ url_for('video_feed') }}" alt="Webcam feed" style="width: 100%; height: auto;">
         </div>
+
+        <!-- Button to start/stop webcam -->
+        <button id="start-stop-button" class="btn" onclick="toggleWebcam()">Start Webcam</button>
     </div>
-    
+
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const videoRef = document.getElementById("webcam-video");
-            const camButton = document.querySelector(".cam-button");
-    
-            // Listen for the button click to start the webcam
-            camButton.addEventListener("click", async () => {
-                try {
-                    // Request user media for video (webcam)
-                    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-                    // Attach the webcam stream to the video element
-                    videoRef.srcObject = stream;
-                    videoRef.play();
-                    // Hide the start webcam button after it starts
-                    camButton.style.display = "none";
-                } catch (err) {
-                    alert("Unable to access webcam. Please check your browser permissions.");
-                }
-            });
-        });
+        let webcamStarted = false;
+        const startButton = document.getElementById('start-stop-button');
+
+        // Toggle webcam feed on button click
+        async function toggleWebcam() {
+            if (webcamStarted) {
+                // Stop webcam feed
+                stopWebcam();
+            } else {
+                // Start webcam feed
+                await startWebcam();
+            }
+        }
+
+        // Start webcam and detection
+        async function startWebcam() {
+            // Update button text
+            startButton.textContent = 'Stop Webcam';
+            webcamStarted = true;
+        }
+
+        // Stop the webcam
+        function stopWebcam() {
+            // Stop webcam feed logic (if needed)
+            startButton.textContent = 'Start Webcam';
+            webcamStarted = false;
+        }
     </script>
-    
 </body>
 </html>

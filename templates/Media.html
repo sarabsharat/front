@@ -39,18 +39,20 @@
                 </div></div>
                 <button type="submit" class="submit-button"><i class="fa fa-check-circle" aria-hidden="true"></i>Detect</button>
             </form>
-            <p><span>Model Ver:</span>{{model}}</p>
         </div>
         
         <div class="output-section" id="output-section">
             {% if detected_image %}
                     <h2>Detected Image:</h2>
                     <img class="decimg" src="{{ url_for('send_detected_file', filename='detected_image.jpg') }}" alt="decimg" style="max-width: 100%; height: auto;" id="decimg">
-                {% endif %}<br><button id="download-btn" class="back-button"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i>Download</button>
+                {% endif %}
+                {% if threat_message %}
+                    <h2 class="threat-message">{{ threat_message }}</h2>
+                {% endif %}
+                <br><button id="download-btn" class="back-button"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i>Download</button>
 
-                <a href="javascript:void(0);" onclick="history.go(-1)" id="back-btn" class="back-button">
+               <a href="{{ url_for('index') }}" class="back-button">
                     <i class="fa fa-angle-left" aria-hidden="true"></i> Back</a></div>
     </div>
 </body>
 </html>
-

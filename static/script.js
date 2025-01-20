@@ -8,22 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Webcam functionality
-    const videoRef = document.getElementById("webcam-video");
-    const camButton = document.querySelector(".cam-button");
-
-    camButton.addEventListener("click", async () => {
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-            videoRef.srcObject = stream;
-            videoRef.play(); // Ensure the video starts playing
-            camButton.style.display = "none";
-        } catch (err) {
-            console.error("Error accessing webcam:", err);
-            alert("Unable to access webcam. Check browser permissions and ensure a webcam is connected.");
-        }
-    });
-
+   
     // File upload functionality
     const fileInput = document.getElementById("file-input");
     const uploadButton = document.querySelector(".upload-button");
@@ -38,32 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-// Function to draw detections
-function drawDetections(image, detections) {
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-
-    const img = new Image();
-    img.src = URL.createObjectURL(image);
-
-    img.onload = () => {
-        canvas.width = img.width;
-        canvas.height = img.height;
-        ctx.drawImage(img, 0, 0);
-
-        detections.forEach(det => {
-            const [x1, y1, x2, y2] = det.box;
-            ctx.strokeStyle = "red";
-            ctx.lineWidth = 2;
-            ctx.strokeRect(x1, y1, x2 - x1, y2 - y1);
-            ctx.font = "16px Arial";
-            ctx.fillStyle = "red";
-            ctx.fillText(`${det.label} (${(det.confidence * 100).toFixed(1)}%)`, x1, y1 - 5);
-        });
-
-        document.body.appendChild(canvas);
-    };
-}
 document.getElementById("file-input").addEventListener("change", function(event) {
     const formData = new FormData();
     formData.append("file", event.target.files[0]);
