@@ -58,12 +58,29 @@ function detectImage(filePath) {
               const imagePath = data.image_path;
               console.log("Detection successful, image path:", imagePath);
               const detectedImage = document.getElementById("decimg");
-              const detectedSection = document.getElementById("detected-section");
+              const detectedSection = document.getElementById("output-section");
               const downloadBtn = document.getElementById("download-btn");
 
               detectedImage.src = `/detected_file/${imagePath.split('/').pop()}`;
               detectedSection.style.display = "block";
               downloadBtn.style.display = "inline-block";
+
+              // Update output section based on detection results
+              const outputMessage = document.getElementById("output-message");
+              const confidence = data.confidence; // Get confidence from response
+              const detectedClasses = data.detected_classes; // Get detected classes from response
+
+              if (confidence >= 0.50) {
+                  if (detectedClasses.includes('holding_gun')) {
+                      outputMessage.textContent = "Threat Detected🚨: Someone is holding a gun🔫.";
+                  } else if (detectedClasses.includes('lockpicking')) {
+                      outputMessage.textContent = "Threat Detected🚨: A thief is nearby🐱‍👤.";
+                  } else {
+                      outputMessage.textContent = "No significant threat detected.";
+                  }
+              } else {
+                  outputMessage.textContent = "No significant threat detected.";
+              }
 
               downloadBtn.addEventListener("click", () => {
                   const link = document.createElement("a");
@@ -81,12 +98,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const detectedImage = document.getElementById('decimg');
     const detectedSection = document.getElementById('output-section');
 
-    
     detectedSection.style.display = 'none';
 
     // Show the download button when the image is loaded
     detectedImage.onload = function() {
-        
         detectedSection.style.display = 'block'; // Show the detected section
     };
 

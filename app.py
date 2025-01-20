@@ -95,6 +95,10 @@ def detect(file_path):
     # Get the first result
     result = results[0]
 
+    # Extract confidence and detected classes
+    confidence = result.boxes.conf[0].item()  # Assuming you want the first detection's confidence
+    detected_classes = result.names[result.boxes.cls[0].item()]  # Get the class name
+
     # Optionally, save the result image
     result_path = os.path.join(app.config['DETECTED_FOLDER'], 'detected_image.jpg')
     result.save(result_path)
@@ -130,3 +134,6 @@ def send_detected_file(filename):
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+#hsgdsa  if __name__ == '__main__':   app.run(host='0.0.0.0', port=5000)
+
