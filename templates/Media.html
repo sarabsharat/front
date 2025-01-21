@@ -10,14 +10,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    
+    <div class="keeper">
     <div class="top">
         <h1 class="title">Pose Detection</h1>
-        <div class="text">
-            This model detects different poses to identify potential threats.
-                It can recognize if someone is armed, lockpicking a property, or
-                in a neutral position
-            </div>
     <div class="tabs-container">
         <a href="{{ url_for('index') }}">
             <button class="tab-button active">Media Upload</button>
@@ -54,5 +49,6 @@
                <a href="{{ url_for('index') }}" class="back-button">
                     <i class="fa fa-angle-left" aria-hidden="true"></i> Back</a></div>
     </div>
+</div>
 </body>
 </html>

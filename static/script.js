@@ -70,18 +70,6 @@ function detectImage(filePath) {
               const confidence = data.confidence; // Get confidence from response
               const detectedClasses = data.detected_classes; // Get detected classes from response
 
-              if (confidence >= 0.50) {
-                  if (detectedClasses.includes('holding_gun')) {
-                      outputMessage.textContent = "Threat Detected🚨: Someone is holding a gun🔫.";
-                  } else if (detectedClasses.includes('lockpicking')) {
-                      outputMessage.textContent = "Threat Detected🚨: A thief is nearby🐱‍👤.";
-                  } else {
-                      outputMessage.textContent = "No significant threat detected.";
-                  }
-              } else {
-                  outputMessage.textContent = "No significant threat detected.";
-              }
-
               downloadBtn.addEventListener("click", () => {
                   const link = document.createElement("a");
                   link.href = detectedImage.src;

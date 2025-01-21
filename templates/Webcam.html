@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Real-Time Object Detection</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="top">
@@ -24,21 +25,22 @@
     </div></div>
 
     <div class="container">
-        <h1>Real-Time Object Detection with YOLO</h1>
-        <p>Click the button to start/stop the webcam feed with YOLO detection:</p>
-
+        <div class="upload-section">
         <!-- Webcam feed -->
         <div class="webcam-feed">
             <img id="video-stream" src="{{ url_for('video_feed') }}" alt="Webcam feed" style="width: 100%; height: auto;">
         </div>
-
-        <!-- Button to start/stop webcam -->
-        <button id="start-stop-button" class="btn" onclick="toggleWebcam()">Start Webcam</button>
+        <button class="cam-button" id="start-stop-button" aria-label="Start Webcam" onclick="toggleWebcam()">
+            <i class="fa-solid fa-video fa-2xl"></i> Start Webcam
+        </button>
     </div>
+</div>
 
     <script>
         let webcamStarted = false;
         const startButton = document.getElementById('start-stop-button');
+
+        
 
         // Toggle webcam feed on button click
         async function toggleWebcam() {
