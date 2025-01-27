@@ -1,2 +1,0 @@
-- Fix merge conflicts
-- Ask Yazan how to deploy the code on a GPU machine for real world scenarios
