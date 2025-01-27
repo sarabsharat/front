@@ -10,15 +10,15 @@ from flask import Flask, render_template, request, jsonify, send_from_directory
 app = Flask(__name__)
 
 # Configuration
-app.config['UPLOAD_FOLDER'] = 'uploads'  # Folder to save uploaded files
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # Limit upload size to 16MB
-app.config['DETECTED_FOLDER'] = 'detected_images'  # Folder to save detected images
+app.config['UPLOAD_FOLDER'] = 'uploads' 
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  
+app.config['DETECTED_FOLDER'] = 'detected_images'  
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 os.makedirs(app.config['DETECTED_FOLDER'], exist_ok=True)
 
-# Load YOLO model
-model = YOLO('best.pt')  # Replace 'best.pt' with the correct path to your trained YOLO model
-classNames = ["lock_picking", "holding_gun", "null"]  # Replace with actual class names
+
+model = YOLO('best.pt')  
+classNames = ["lock_picking", "holding_gun", "null"]  
 
 @app.route('/')
 def index():
@@ -74,58 +74,57 @@ def upload_file():
     if file:
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
         file.save(file_path)
-        print(f"File uploaded: {file_path}")  # Debugging statement
+        print(f"File uploaded: {file_path}") 
 
-        # After file upload, trigger detection
-        return detect(file_path)  # Pass file_path to the detection route
+        
+        return detect(file_path)  
 
 @app.route('/detect', methods=['POST'])
 def detect(file_path):
     if not os.path.exists(file_path):
         return jsonify({"error": "File not found for detection"}), 400
 
-    # Read image
+    
     img = cv2.imread(file_path)
     if img is None:
         return jsonify({"error": "Failed to load image"}), 400
 
-    # Run YOLO detection
+   
     results = model(img)
 
-    # Get the first result
+   
     result = results[0]
 
-    # Extract confidence and detected classes
-    confidence = result.boxes.conf[0].item()  # Assuming you want the first detection's confidence
-    detected_classes = result.names[result.boxes.cls[0].item()]  # Get the class name
+    
+    confidence = result.boxes.conf[0].item()  
+    detected_classes = result.names[result.boxes.cls[0].item()]  
 
-    # Optionally, save the result image
+    
     result_path = os.path.join(app.config['DETECTED_FOLDER'], 'detected_image.jpg')
     result.save(result_path)
 
-    # Draw rectangles around detected objects with the new color
-    for box in result.boxes.xyxy:  # Assuming boxes are in xyxy format
-        x1, y1, x2, y2 = map(int, box)  # Convert to integer coordinates
-        cv2.rectangle(img, (x1, y1), (x2, y2), (64, 110, 142), 2)  # Change color to #406E8E
+    
+    for box in result.boxes.xyxy: 
+        x1, y1, x2, y2 = map(int, box) 
+        cv2.rectangle(img, (x1, y1), (x2, y2), (64, 110, 142), 2)  
 
-    # Check confidence level
+   
     if result.boxes.conf[0] < 0.50:
-        # Return the image without confidence or class
+       
         return render_template('Media.html', detected_image=result_path)
     
-    # Determine threat messages based on detected class
+  
     class_name = None
     threat_message = None
-    if len(result.boxes.cls) > 0:  # Check if there are any detected classes
-        class_index = int(result.boxes.cls[0].item())  # Get the class index as an integer
-        if class_index < len(result.names):  # Ensure the index is within bounds
-            class_name = result.names[class_index]  # Get the class name
+    if len(result.boxes.cls) > 0: 
+        class_index = int(result.boxes.cls[0].item())  
+        if class_index < len(result.names): 
+            class_name = result.names[class_index]
             if class_name == "holding_gun":
                 threat_message = "Threat detected🚨:Someone is holding a gun🔫."
             elif class_name == "lock_picking":
                 threat_message = "Threat detected🚨:There's a thief nearby🥷."
 
-    # Return the index page with the detected image and its details
     return render_template('Media.html', detected_image=result_path, class_name=class_name, confidence=result.boxes.conf[0], threat_message=threat_message)
 
 @app.route('/detected_file/<filename>')
@@ -134,6 +133,4 @@ def send_detected_file(filename):
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-#hsgdsa  if __name__ == '__main__':   app.run(host='0.0.0.0', port=5000)
 
