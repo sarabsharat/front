@@ -8,8 +8,10 @@ import time
 from flask import Flask, render_template, request, jsonify, send_from_directory
 
 app = Flask(__name__)
+cap = None
+webcam_running = False
 
-# Configuration
+
 app.config['UPLOAD_FOLDER'] = 'uploads' 
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  
 app.config['DETECTED_FOLDER'] = 'detected_images'  
@@ -20,6 +22,7 @@ os.makedirs(app.config['DETECTED_FOLDER'], exist_ok=True)
 model = YOLO('best.pt')  
 classNames = ["lock_picking", "holding_gun", "null"]  
 
+
 @app.route('/')
 def index():
     return render_template('Media.html', detected_image=None)
@@ -29,16 +32,18 @@ def webcam():
     return render_template('Webcam.html')
 
 def generate_frames():
-    cap = cv2.VideoCapture(0)  # Open the default webcam
-    cap.set(3, 640)           # Set frame width
-    cap.set(4, 480)           # Set frame height
+    global cap
+    global webcam_running
+    cap = cv2.VideoCapture(0)  
+    cap.set(3, 640)           
+    cap.set(4, 480)          
 
     while cap.isOpened():
         success, frame = cap.read()
         if not success:
             break
 
-        # Run YOLO detection on the frame
+        
         results = model(frame)
         for r in results:
             for box in r.boxes:
@@ -46,9 +51,9 @@ def generate_frames():
                 conf = box.conf[0]
                 cls = int(box.cls[0])
                 label = f"{classNames[cls]} {conf:.2f}"
-                # Draw bounding box and label
                 cv2.rectangle(frame, (x1, y1), (x2, y2), (142, 110, 64), 4) 
                 cv2.putText(frame, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (142, 110, 64), 2)
+
 
         # Encode frame as JPEG
         _, buffer = cv2.imencode('.jpg', frame)
@@ -58,9 +63,23 @@ def generate_frames():
 
 @app.route('/video_feed')
 def video_feed():
+    global cap, webcam_running
+    if not webcam_running:
+        cap = cv2.VideoCapture(0)  
+        cap.set(3, 640)           
+        cap.set(4, 480)          
+        webcam_running = True
     return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-
+@app.route('/stop_webcam', methods=['POST'])
+def stop_webcam():
+    global cap, webcam_running
+    if cap is not None and cap.isOpened():
+        cap.release()  
+        webcam_running = True
+        return "Webcam stopped"
+    else:
+        return "Webcam was not started"
 
 
 @app.route('/upload', methods=['POST'])

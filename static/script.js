@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Ensure active tab toggling
+    
     const tabButtons = document.querySelectorAll(".tab-button");
     tabButtons.forEach(button => {
         button.addEventListener("click", () => {
@@ -34,7 +34,7 @@ document.getElementById("file-input").addEventListener("change", function(event)
       .then(data => {
           if (data.message === "File uploaded successfully") {
               console.log("File uploaded:", data.file_path);
-              detectImage(data.file_path);  // Send file path for detection
+              detectImage(data.file_path); 
           }
       });
 });
@@ -67,8 +67,8 @@ function detectImage(filePath) {
 
               // Update output section based on detection results
               const outputMessage = document.getElementById("output-message");
-              const confidence = data.confidence; // Get confidence from response
-              const detectedClasses = data.detected_classes; // Get detected classes from response
+              const confidence = data.confidence;
+              const detectedClasses = data.detected_classes; 
 
               downloadBtn.addEventListener("click", () => {
                   const link = document.createElement("a");
@@ -88,9 +88,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     detectedSection.style.display = 'none';
 
-    // Show the download button when the image is loaded
+    
     detectedImage.onload = function() {
-        detectedSection.style.display = 'block'; // Show the detected section
+        detectedSection.style.display = 'block'; 
     };
 
     backButton.onload = function() {
@@ -99,13 +99,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Set up the download functionality
     downloadButton.addEventListener('click', function() {
-        const imageUrl = detectedImage.src; // Get the image URL
-        const link = document.createElement('a'); // Create a temporary link element
-        link.href = imageUrl; // Set the link's href to the image URL
-        link.download = 'detected_image.jpg'; // Set the download attribute with a filename
-        document.body.appendChild(link); // Append the link to the body
-        link.click(); // Programmatically click the link to trigger the download
-        document.body.removeChild(link); // Remove the link from the document
+        const imageUrl = detectedImage.src; 
+        const link = document.createElement('a'); 
+        link.href = imageUrl; 
+        link.download = 'detected_image.jpg'; 
+        document.body.appendChild(link);
+        link.click(); 
+        document.body.removeChild(link);
     });
 
     // Handle file input click

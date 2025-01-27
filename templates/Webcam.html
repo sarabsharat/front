@@ -40,32 +40,45 @@
         let webcamStarted = false;
         const startButton = document.getElementById('start-stop-button');
 
-        
-
-        // Toggle webcam feed on button click
         async function toggleWebcam() {
             if (webcamStarted) {
-                // Stop webcam feed
-                stopWebcam();
+                await stopWebcam();
             } else {
-                // Start webcam feed
                 await startWebcam();
             }
         }
 
-        // Start webcam and detection
         async function startWebcam() {
-            // Update button text
-            startButton.textContent = 'Stop Webcam';
-            webcamStarted = true;
+            try {
+                const response = await fetch('/video_feed');
+                if (response.ok) {
+                    startButton.textContent = 'Stop Webcam';
+                    webcamStarted = true;
+                } else {
+                    console.error('Failed to start webcam');
+                }
+            } catch (error) {
+                console.error('Error starting webcam:', error);
+            }
         }
 
-        // Stop the webcam
-        function stopWebcam() {
-            // Stop webcam feed logic (if needed)
-            startButton.textContent = 'Start Webcam';
-            webcamStarted = false;
-        }
+        async function stopWebcam() {
+            try {
+                const response = await fetch('/stop_webcam', {
+                    method: 'POST',
+                });
+                if (response.ok) {
+                    console.log('Webcam stopped successfully');
+                    startButton.textContent = 'Start Webcam';
+                    webcamStarted = false;
+                } else {
+                    console.error('Failed to stop webcam');
+                }
+            } catch (error) {
+                console.error('Error stopping webcam:', error);
+            }
+        }    
     </script>
 </body>
 </html>
+
