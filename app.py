@@ -18,7 +18,7 @@ os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 os.makedirs(app.config['DETECTED_FOLDER'], exist_ok=True)
 
 model = YOLO('best.pt')  
-classNames = ["lock_picking", "holding_gun", "null"]  
+classNames = ["lock picking", "holding a gun", "Person"]  
 
 @app.route('/')
 def index():
